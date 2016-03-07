@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Created by ddceliasr on 2/25/16.
- */
 public class BlackJack {
 
     public static void main (String[] args) {
