@@ -48,7 +48,59 @@ public class BlackJack {
         Hand playerHand = new Hand(playerSecretCard,playerPublicCard);
         Hand dealerHand = new Hand(dealerSecretCard,dealerPublicCard);
 
-        Scanner kb = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        String playChoice = null;
+        Card dealtCard;
+        boolean playerIsBust = playerHand.isBust(playerHand.score(true));
+        boolean dealerIsBust = dealerHand.isBust(dealerHand.score(false));
+
+        System.out.println(playerHand);
+        do {
+            System.out.print("Would you like to hit? (y/n): ");
+            playChoice = input.nextLine();
+            if(playChoice.equals("y")) {
+                dealtCard = deck.get(0);
+                System.out.println(dealtCard);
+                deck.remove(dealtCard);
+                playerHand.dealCard(dealtCard);
+                System.out.println(playerHand);
+                playerIsBust = playerHand.isBust(playerHand.score(true));
+                if(playerIsBust) {
+                    System.out.println("You're bust...");
+                    break;
+                }
+
+            } else {
+                System.out.println("You have opted to not hit, you're score is: " + playerHand.score(true));
+            }
+        } while (playChoice.equals("y"));
+
+
+        do {
+            dealtCard = deck.get(0);
+            deck.remove(dealtCard);
+            dealerHand.dealCard(dealtCard);
+            System.out.println(dealerHand);
+            System.out.println("Dealer score is: " + dealerHand.score(false));
+            dealerIsBust = dealerHand.isBust(dealerHand.score(false));
+
+            if(dealerIsBust) {
+                System.out.println("Dealer is bust...");
+                break;
+            }
+        } while(dealerHand.score(false) < 18);
+
+        if((playerHand.score(true) > dealerHand.score(false) && !playerIsBust) || (dealerIsBust && !playerIsBust)) {
+            System.out.println("You win!");
+            System.out.println("Final score is...\nPlayer: " + playerHand.score(true) + "\nDealer: " + dealerHand.score(false));
+        } else if((dealerHand.score(false) > playerHand.score(true) && !dealerIsBust) || (playerIsBust) && !dealerIsBust) {
+            System.out.println("You lose!");
+            System.out.println("Final score is...\nPlayer: " + playerHand.score(true) + "\nDealer: " + dealerHand.score(false));
+        }
+        else {
+            System.out.println("You both lose...");
+            System.out.println("Final score is...\nPlayer: " + playerHand.score(true) + "\nDealer: " + dealerHand.score(false));
+        }
 
 
 
@@ -104,6 +156,14 @@ public class BlackJack {
             }
 
             return score;
+        }
+
+        public boolean isBust(int score) {
+            if(score <= 21) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
         @Override
