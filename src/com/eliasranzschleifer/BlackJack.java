@@ -21,7 +21,6 @@ public class BlackJack {
                         break;
                     default:
                         weight = value.ordinal() + 1;
-
                 }
 
                 Card card = new Card(weight,suit,value);
@@ -35,13 +34,11 @@ public class BlackJack {
 
         Card playerSecretCard = deck.get(0);
         deck.remove(playerSecretCard);
-
         Card dealerSecretCard = deck.get(0);
         deck.remove(dealerSecretCard);
 
         Card playerPublicCard = deck.get(0);
         deck.remove(playerPublicCard);
-
         Card dealerPublicCard = deck.get(0);
         deck.remove(dealerPublicCard);
 
