@@ -128,18 +128,17 @@ public class CardGame
                 if(dealerIsBust) {
                     System.out.println("Dealer is bust...");
                     break;
+                } else if(dealerScore >= 16) {
+                    break;
+                } else {
+                    dealtCard = deck.dealCard();
+                    dealerHand.dealCard(dealtCard);
+                    System.out.println(dealerHand);
+                    System.out.println("Dealer score is: " + dealerHand.score(true));
                 }
-
-                dealtCard = deck.dealCard();
-                dealerHand.dealCard(dealtCard);
-                System.out.println(dealerHand);
-                System.out.println("Dealer score is: " + dealerHand.score(true));
-
             }
 
-
             String result = finalScore(playerHand.score(true),dealerHand.score(true),playerIsBust,dealerIsBust);
-
             System.out.println(result);
 
         }
@@ -199,10 +198,9 @@ public class CardGame
         }
 
         private void shuffleDeck(int shuffleAmount) {
-            for(int i=0;i<shuffleAmount;i++) {
+            for(int i=0;i<=shuffleAmount;i++) {
                 Collections.shuffle(deck);
             }
         }
     }
-
 }
